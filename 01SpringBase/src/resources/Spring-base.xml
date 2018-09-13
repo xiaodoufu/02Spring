@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+      <!--配置UserDao的实现类-->
+      <bean id="userDao" class="com.xdf.dao.UserDaoImpl"/>
+
+     <!--配置UserService的实现类-->
+      <bean id="userService" class="com.xdf.service.UserServiceImpl">
+            <property name="dao" ref="userDao"/>
+      </bean>
+
+
+      <!--验证bean的作用域
+       scope="singleton" ：默认就是单例，只实例化一次
+       prototype :原型  每次都会实例化一次
+        <bean id="student" class="com.xdf.pojo.Student" scope="singleton"/>
+      -->
+
+
+
+      <!--bean的属性赋值方式  设值注入
+      <bean id="student" class="com.xdf.pojo.Student">
+            <property name="stuId" value="2"/>
+            <property name="stuName" value="小白"/>
+       </bean>-->
+      <!--bean的属性赋值方式  p命名
+      <bean id="student" class="com.xdf.pojo.Student" p:stuId="3" p:stuName="小甜甜"/>-->
+      <!--bean的属性赋值方式  构造注入
+      <bean id="student" class="com.xdf.pojo.Student">
+            &lt;!&ndash;通过构造的参数下标
+            <constructor-arg index="0" value="4"/>
+            <constructor-arg index="1" value="龙哥"/>&ndash;&gt;
+            &lt;!&ndash;通过构造的参数下标&ndash;&gt;
+            <constructor-arg name="stuId" value="5"/>
+            <constructor-arg name="stuName" value="凤姐"/>
+      </bean>&ndash;&gt;-->
+      <!--bean的属性赋值方式  构造注入  C命名
+      <bean id="student1" class="com.xdf.pojo.Student" c:id="1" c:name="哈哈"/>
+      <bean id="student2" class="com.xdf.pojo.Student" c:_0="1" c:_1="哈哈"/>-->
+
+
+
+      <!--bean的属性赋值方式  设值注入-->
+          <bean id="student" class="com.xdf.pojo.Student">
+                <property name="stuId" value="2"/>
+                <property name="stuName" value="小白"/>
+                <property name="teacher">
+                      <bean id="teacher" class="com.xdf.pojo.Teacher">
+                            <property name="id" value="1"/>
+                            <property name="name" value="老师"/>
+                      </bean>
+                </property>
+                <property name="nums">
+                      <array>
+                            <value>1</value>
+                            <value>2</value>
+                            <value>3</value>
+                      </array>
+                </property>
+                <property name="list">
+                      <list>
+                            <value>xiaohei</value>
+                            <value>xiaobai</value>
+                            <value>xiaohong</value>
+                      </list>
+                </property>
+                <property name="set">
+                      <set>
+                            <value>xiaohei</value>
+                            <value>xiaobai</value>
+                            <value>xiaohong</value>
+                      </set>
+                </property>
+                <property name="map">
+                      <map>
+                           <entry key="key1" value="value1"/>
+                           <entry key="key2" value="value2"/>
+                      </map>
+                </property>
+                <property name="properties">
+                      <props>
+                            <prop key="key1">value1</prop>
+                            <prop key="key2">value2</prop>
+                      </props>
+                </property>
+           </bean>
+ </beans>

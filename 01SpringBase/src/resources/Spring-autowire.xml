@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--
+    autowire="byType":默认会在容器中查询和类中属性类型一致的类型
+                      找到一个是正确的，如果有多个类型，会报错
+    autowire="byName":默认会在容器中查询和类中属性名一致的bean
+    -->
+
+    <bean id="student" class="com.xdf.pojo.Student" autowire="byName">
+    </bean>
+    <bean id="teacher" class="com.xdf.pojo.Teacher">
+        <property name="id" value="1"/>
+        <property name="name" value="老师"/>
+   </bean>
+  <bean id="small" class="com.xdf.pojo.SmallTeacher"/>
+
+
+
+    <!--开启扫描注解-->
+    <context:annotation-config/>
+    <!--配置UserDao的实现类-->
+    <bean id="userDao" class="com.xdf.dao.UserDaoImpl"/>
+
+    <!--配置UserService的实现类-->
+    <bean id="userService" class="com.xdf.service.UserServiceImpl"/>
+
+
+
+
+
+
+
+
+
+
+</beans>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="01SpringBase" />
+        <module name="02SpringJDBC" />
+        <module name="03SpringProxy" />
+        <module name="04SpringAdvice" />
+        <module name="05SpringAspectJ" />
+        <module name="06SpringTransaction" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="01SpringBase" target="1.7" />
+      <module name="02SpringJDBC" target="1.7" />
+      <module name="03SpringProxy" target="1.7" />
+      <module name="04SpringAdvice" target="1.7" />
+      <module name="05SpringAspectJ" target="1.7" />
+      <module name="06SpringTransaction" target="1.7" />
+      <module name="Spring" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

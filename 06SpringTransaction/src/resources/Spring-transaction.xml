@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--加载jdbc.properties文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--01.配置数据源 使用成druid自带的数据源   推荐使用-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+    <!--配置dao层对象-->
+  <bean id="accountDao" class="com.xdf.dao.AccountDaoImpl">
+      <property name="dataSource" ref="dataSource"/>
+  </bean>
+  <bean id="stockDao" class="com.xdf.dao.StockDaoImpl">
+      <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+
+    <!--配置service层对象-->
+    <bean id="buyStock" class="com.xdf.service.BuyStockImpl">
+        <property name="accountDao" ref="accountDao"/>
+        <property name="stockDao" ref="stockDao"/>
+    </bean>
+
+
+    <!--配置事务管理器  无论使用xml配置 还是注解-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!--配置切入点
+    <aop:config>
+        <aop:pointcut id="myPoint" expression="execution(* *..service.*.*(..))"/>
+        <aop:advisor advice-ref="myAdvice" pointcut-ref="myPoint"/>
+    </aop:config>
+
+
+    &lt;!&ndash;配置通知&ndash;&gt;
+    <tx:advice id="myAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="buyStock" propagation="REQUIRED" isolation="DEFAULT" rollback-for="java.lang.RuntimeException"/>
+        </tx:attributes>
+    </tx:advice>-->
+
+</beans>

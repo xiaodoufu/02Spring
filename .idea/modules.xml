@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/01SpringBase/01SpringBase.iml" filepath="$PROJECT_DIR$/01SpringBase/01SpringBase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02SpringJDBC/02SpringJDBC.iml" filepath="$PROJECT_DIR$/02SpringJDBC/02SpringJDBC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03SpringProxy/03SpringProxy.iml" filepath="$PROJECT_DIR$/03SpringProxy/03SpringProxy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04SpringAdvice/04SpringAdvice.iml" filepath="$PROJECT_DIR$/04SpringAdvice/04SpringAdvice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05SpringAspectJ/05SpringAspectJ.iml" filepath="$PROJECT_DIR$/05SpringAspectJ/05SpringAspectJ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06SpringTransaction/06SpringTransaction.iml" filepath="$PROJECT_DIR$/06SpringTransaction/06SpringTransaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring.iml" filepath="$PROJECT_DIR$/Spring.iml" />
+    </modules>
+  </component>
+</project>

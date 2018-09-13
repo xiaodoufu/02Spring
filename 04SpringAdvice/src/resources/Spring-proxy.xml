@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--01.我们需要知道给哪个目标对象织入增强
+        02.需要配置目标对象
+        03.需要配置增强 通知-->
+    <bean id="userDao" class="com.xdf.dao.UserDaoImpl"/>
+
+    <!--书写多个目标对象-->
+    <bean id="userServiceImpl1" class="com.xdf.service.UserServiceImpl">
+        <property name="dao" ref="userDao"/>
+    </bean>
+    <bean id="userServiceImpl2" class="com.xdf.service.UserServiceImpl">
+        <property name="dao" ref="userDao"/>
+    </bean>
+
+    <!--配置前置通知-->
+    <bean id="beforeAdvice" class="com.xdf.advice.MyBeforeAdvice"/>
+
+
+    <!--配置代理生成器  给指定的目标对象  注入  替换我们之前的工厂-->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+          <property name="beanNames">
+              <array>
+                  <value>userServiceImpl1</value> <!--指定的一个bean-->
+                  <value>userServiceImpl2</value> <!--指定的一个bean-->
+              </array>
+          </property>
+        <!--设置顾问-->
+        <property name="interceptorNames">
+            <array>
+                <value>myAdvisor</value>
+            </array>
+        </property>
+    </bean>
+
+    <!--配置顾问-->
+    <bean id="myAdvisor"  class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+         <!--配置通知-->
+        <property name="advice" ref="beforeAdvice"/>
+        <!--配置切入点-->
+        <property name="mappedName" value="eat"/>
+    </bean>
+
+
+
+
+</beans>

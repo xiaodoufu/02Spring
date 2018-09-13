@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01SpringBase" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02SpringJDBC" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03SpringProxy" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/04SpringAdvice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/05SpringAspectJ" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06SpringTransaction" charset="UTF-8" />
+  </component>
+</project>

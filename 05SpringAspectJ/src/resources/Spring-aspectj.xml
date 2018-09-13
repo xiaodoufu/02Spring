@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--01.我们需要知道给哪个目标对象织入增强
+        02.需要配置目标对象
+        03.需要配置增强 通知-->
+    <bean id="userDao" class="com.xdf.dao.UserDaoImpl"/>
+
+    <!--书写多个目标对象-->
+    <bean id="userServiceImpl" class="com.xdf.service.UserServiceImpl">
+        <property name="dao" ref="userDao"/>
+    </bean>
+
+    <!--设置切面类-->
+    <bean id="myAspect" class="com.xdf.MyAspectJ"/>
+
+   <!--注册aspectJ的自动代理-->
+    <aop:aspectj-autoproxy/>
+
+</beans>

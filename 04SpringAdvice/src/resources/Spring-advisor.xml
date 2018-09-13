@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--01.我们需要知道给哪个目标对象织入增强
+        02.需要配置目标对象
+        03.需要配置增强 通知-->
+    <bean id="userDao" class="com.xdf.dao.UserDaoImpl"/>
+
+    <bean id="userServiceImpl" class="com.xdf.service.UserServiceImpl">
+        <property name="dao" ref="userDao"/>
+    </bean>
+
+    <!--配置前置通知-->
+    <bean id="beforeAdvice" class="com.xdf.advice.MyBeforeAdvice"/>
+
+
+    <!--配置代理工厂 创建代理对象  从而让通知和目标对象产生关系-->
+    <bean id="userProxyFactory" class="org.springframework.aop.framework.ProxyFactoryBean">
+         <!--设置目标对象-->
+          <property name="targetName" value="userServiceImpl"/>
+        <!--注册顾问   包含通知-->
+          <property name="interceptorNames"  value="myAdvisor"/>
+    </bean>
+
+<!--    &lt;!&ndash;配置 顾问 根据我们设置的名称 去匹配  目标对象中的方法&ndash;&gt;
+    <bean id="myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+          &lt;!&ndash;设置通知&ndash;&gt;
+        <property name="advice" ref="beforeAdvice"/>
+        &lt;!&ndash;指定主业务方法&ndash;&gt;
+        <property name="mappedNames">
+            <array>
+                <value>eat</value>&lt;!&ndash;指定方法获取增强&ndash;&gt;
+                <value>sleep</value>&lt;!&ndash;指定方法获取增强&ndash;&gt;
+            </array>
+        </property>
+    </bean>-->
+
+    <!--根据自己书写的正则匹配方法-->
+    <bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="beforeAdvice"/>
+        <property name="patterns"><!--配置切入点-->
+            <array>
+             <value>com.xdf.service.UserServiceImpl.*e*</value> <!--匹配eat和 sleep-->
+                <!--  <value>.*e*</value>  不推荐使用  可读性差-->
+           </array>
+       </property>
+   </bean>
+
+
+</beans>
